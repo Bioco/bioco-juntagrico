@@ -203,10 +203,11 @@ class Command(BaseCommand):
         member.iban = '' # not existing so far
         member.confirmed = fields['confirmed']
         member.reachable_by_email = True
-        member.canceled = False
-        member.cancelation_date = None
-        member.end_date = None
-        member.inactive = False
+        # canceled not writable on Heroku TODO why?
+        #member.canceled = False
+        #member.cancelation_date = None
+        #member.end_date = None
+        #member.inactive = False
         member.notes = 'Geschlecht: ' + fields['sex']
 
         member.save()
