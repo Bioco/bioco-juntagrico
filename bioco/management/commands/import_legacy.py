@@ -10,6 +10,7 @@ from juntagrico.entity.subtypes import SubscriptionSize
 from juntagrico.entity.subtypes import SubscriptionType
 from juntagrico.entity.subtypes import SubscriptionProduct
 from juntagrico.entity.share import Share
+from juntagrico.entity.jobs import ActivityArea
 
 import datetime
 from django.utils.timezone import make_aware
@@ -18,16 +19,6 @@ import json
 
 class Command(BaseCommand):
     help = 'Imports old bioco data'
-    #
-    # models_to_keep = [
-    #     'auth.group',                             done
-    #     'auth.user',                              done
-    #     'my_ortoloco.abo',                        done
-    #     'my_ortoloco.loco',                       done
-    #     'my_ortoloco.depot',                      done
-    #     'my_ortoloco.anteilschein',               todo
-    #     'my_ortoloco.taetigkeitsbereich',         todo
-    # ]
 
     def add_arguments(self, parser):
         parser.add_argument('db_file_name', type=str, help='A database dump optained with dumpdata to be imported')
@@ -46,6 +37,7 @@ class Command(BaseCommand):
             self.run_import(data, 'my_ortoloco.depot',          'Depot',        self.import_depot)   # must be after members
             self.run_import(data, 'my_ortoloco.abo',            'Abo',          self.import_abo)     # must be after member and depot
             self.run_import(data, 'my_ortoloco.anteilschein',   'Anteilschein', self.import_anteilschein)     # must be after member
+            self.run_import(data, 'my_ortoloco.taetigkeitsbereich',   'Kernbereich', self.import_taetigkeitsbereich)     # must be after member
 
             self.run_import(data, 'my_ortoloco.loco',           'Member',       self.import_member_second_pass)  # must be after abo
             self.run_import(data, 'my_ortoloco.abo',            'Abo',          self.import_abo_second_pass)     # must be after loco_second_pass
@@ -164,7 +156,7 @@ class Command(BaseCommand):
         fields = data['fields']
 
         asch = Share(pk=data['pk'])
-        #xxx
+
         if not fields['loco']:
             print("No loco?")
             return
@@ -195,8 +187,32 @@ class Command(BaseCommand):
         asch.notes = f'Imported from ID={data["pk"]}, number={fields["number"]}'
         asch.save()
 
+    def import_taetigkeitsbereich(self, data):
+        fields = data['fields']
+        ADMIN_MEMBER_ID = 1
+
+        aa = ActivityArea(pk=data['pk'])
+
+        aa.name = fields['name']
+        aa.description = fields['description']
+        aa.core = fields['core']
+        if fields['coordinator'] == ADMIN_MEMBER_ID:
+            coord = 107 # Admin user not created anymore - replace
+        else:
+            coord = fields['coordinator']
+        aa.coordinator = Member.objects.get(pk=coord)
+        aa.hidden = fields['hidden']
+        aa.email = None
+        aa.show_coordinator_phonenumber = True
+        aa.save()
+
+        for member in fields['locos']:
+            if member == ADMIN_MEMBER_ID: continue
+            aa.members.add(Member.objects.get(pk=member))
+
     def import_abo_second_pass(self, data):
         fields = data['fields']
+
         abo = Subscription.objects.get(pk=data['pk'])
         abo.primary_member = Member.objects.get(pk=fields['primary_loco'])
         abo.save()
