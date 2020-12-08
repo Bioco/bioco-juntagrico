@@ -152,10 +152,10 @@ class Command(BaseCommand):
         abo.save()
 
         if fields['active']:
-            abo.activate(datetime.datetime.fromisoformat('2020-01-01'))
+            abo.activate(datetime.date.fromisoformat('2020-01-01'))
         else:
-            abo.activate(datetime.datetime.fromisoformat('2020-01-01'))
-            abo.cancel(datetime.datetime.fromisoformat('2020-01-01'))
+            abo.activate(datetime.date.fromisoformat('2020-01-01'))
+            abo.cancel(datetime.date.fromisoformat('2020-01-01'))
 
     def import_abo_second_pass(self, data):
         fields = data['fields']
@@ -178,10 +178,10 @@ class Command(BaseCommand):
         subpart.save()
 
         if fields['active']:
-            subpart.activate(datetime.datetime.fromisoformat('2020-01-01'))
+            subpart.activate(datetime.date.fromisoformat('2020-01-01'))
         else:
-            subpart.activate(datetime.datetime.fromisoformat('2020-01-01'))
-            subpart.cancel(datetime.datetime.fromisoformat('2020-01-01'))
+            subpart.activate(datetime.date.fromisoformat('2020-01-01'))
+            subpart.cancel(datetime.date.fromisoformat('2020-01-01'))
 
     def import_member(self, data):
         if data['pk'] == 1: return  # intranet admin
