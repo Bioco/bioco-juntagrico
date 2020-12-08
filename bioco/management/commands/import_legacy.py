@@ -3,11 +3,13 @@ from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand, CommandError
 from juntagrico.entity.depot import Depot
 from juntagrico.entity.member import Member
+from juntagrico.entity.member import SubscriptionMembership
 from juntagrico.entity.subs import Subscription
 from juntagrico.entity.subs import SubscriptionPart
 from juntagrico.entity.subtypes import SubscriptionSize
 from juntagrico.entity.subtypes import SubscriptionType
 from juntagrico.entity.subtypes import SubscriptionProduct
+from juntagrico.entity.share import Share
 
 import datetime
 from django.utils.timezone import make_aware
@@ -38,14 +40,15 @@ class Command(BaseCommand):
 
             self.create_abo_structure()
 
-            self.run_import(data, 'auth.group',         'Group',    self.import_group)
-            self.run_import(data, 'auth.user',          'User',     self.import_user)
-            self.run_import(data, 'my_ortoloco.loco',   'Member',   self.import_member)  # must be after users
-            self.run_import(data, 'my_ortoloco.depot',  'Depot',    self.import_depot)   # must be after members
-            self.run_import(data, 'my_ortoloco.abo',    'Abo',      self.import_abo)     # must be after member and depot
+            self.run_import(data, 'auth.group',                 'Group',        self.import_group)
+            self.run_import(data, 'auth.user',                  'User',         self.import_user)
+            self.run_import(data, 'my_ortoloco.loco',           'Member',       self.import_member)  # must be after users
+            self.run_import(data, 'my_ortoloco.depot',          'Depot',        self.import_depot)   # must be after members
+            self.run_import(data, 'my_ortoloco.abo',            'Abo',          self.import_abo)     # must be after member and depot
+            self.run_import(data, 'my_ortoloco.anteilschein',   'Anteilschein', self.import_anteilschein)     # must be after member
 
-            self.run_import(data, 'my_ortoloco.loco',   'Member',   self.import_member_second_pass)  # must be after abo
-            self.run_import(data, 'my_ortoloco.abo',    'Abo',      self.import_abo_second_pass)     # must be after loco_second_pass
+            self.run_import(data, 'my_ortoloco.loco',           'Member',       self.import_member_second_pass)  # must be after abo
+            self.run_import(data, 'my_ortoloco.abo',            'Abo',          self.import_abo_second_pass)     # must be after loco_second_pass
 
             self.sql_sequence_reset()
 
@@ -135,7 +138,7 @@ class Command(BaseCommand):
 
         user.groups.set(fields['groups'])
 
-    def import_abo(selfself, data):
+    def import_abo(self, data):
         fields = data['fields']
 
         abo = Subscription(pk=data['pk'])
@@ -156,6 +159,41 @@ class Command(BaseCommand):
         else:
             abo.activate(datetime.date.fromisoformat('2020-01-01'))
             abo.cancel(datetime.date.fromisoformat('2020-01-01'))
+
+    def import_anteilschein(self, data):
+        fields = data['fields']
+
+        asch = Share(pk=data['pk'])
+        #xxx
+        if not fields['loco']:
+            print("No loco?")
+            return
+
+        asch.member = Member.objects.get(pk=fields['loco'])
+        if fields['paid']:
+            asch.paid_date = datetime.date.fromisoformat('2020-01-01')
+            asch.issue_date = datetime.date.fromisoformat('2020-01-01')
+            asch.booking_date = datetime.date.fromisoformat('2020-01-01')
+        else:
+            asch.paid_date = None
+            asch.issue_date = None
+            asch.booking_date = None
+
+        asch.cancelled_date = None
+        asch.termination_date = None
+        asch.payback_date = None
+        if fields['number']:
+            asch.number = fields['number']
+            if int(fields['number']) != data['pk']:
+                print("number != pk ")
+                print(fields['number'])
+                print(data['pk'])
+        else:
+            # create a unique one, different from original numbers
+            asch.number = 1000000 + data['pk']
+        asch.sent_back = False
+        asch.notes = f'Imported from ID={data["pk"]}, number={fields["number"]}'
+        asch.save()
 
     def import_abo_second_pass(self, data):
         fields = data['fields']
@@ -219,10 +257,11 @@ class Command(BaseCommand):
         if not fields['abo']:
             return
 
-        member = Member.objects.get(pk=data['pk'])
-        member.foobar = "bar"
-        member.subscription = Subscription.objects.get(pk=fields['abo'])
-        member.save()
+        SubscriptionMembership.objects.create(
+            member=Member.objects.get(pk=data['pk']),
+            subscription=Subscription.objects.get(pk=fields['abo']),
+            join_date=datetime.date.fromisoformat('2020-01-01')
+        )
 
     def import_depot(self, data):
         fields = data['fields']
@@ -249,64 +288,3 @@ class Command(BaseCommand):
         with connection.cursor() as cursor:
             for sql in sequence_sql:
                 cursor.execute(sql)
-
-#
-#
-# On heroku:
-#
-# groups :
-# [2]
-# groups :
-# [2]
-# Abo import failed for
-# {'model': 'my_ortoloco.abo', 'fields': {'active': True, 'paid': True, 'depot': 16, 'groesse': 2, 'extra_abos': [], 'primary_loco': 42, 'number': '3'}, 'pk': 3}
-# Traceback (most recent call last):
-#   File "manage.py", line 10, in <module>
-#     execute_from_command_line(sys.argv)
-#   File "/app/.heroku/python/lib/python3.8/site-packages/django/core/management/__init__.py", line 401, in execute_from_command_line
-#     utility.execute()
-#   File "/app/.heroku/python/lib/python3.8/site-packages/django/core/management/__init__.py", line 395, in execute
-#     self.fetch_command(subcommand).run_from_argv(self.argv)
-#   File "/app/.heroku/python/lib/python3.8/site-packages/django/core/management/base.py", line 330, in run_from_argv
-#     self.execute(*args, **cmd_options)
-#   File "/app/.heroku/python/lib/python3.8/site-packages/django/core/management/base.py", line 371, in execute
-#     output = self.handle(*args, **options)
-#   File "/app/bioco/management/commands/import_legacy.py", line 45, in handle
-#     self.run_import(data, 'my_ortoloco.abo',    'Abo',      self.import_abo)     # must be after member and depot
-#   File "/app/bioco/management/commands/import_legacy.py", line 96, in run_import
-#     command(line)
-#   File "/app/bioco/management/commands/import_legacy.py", line 155, in import_abo
-#     abo.activate('2020-01-01')
-#   File "/app/.heroku/python/lib/python3.8/site-packages/juntagrico/entity/__init__.py", line 45, in activate
-#     self.save()
-#   File "/app/.heroku/python/lib/python3.8/site-packages/polymorphic/models.py", line 91, in save
-#     return super(PolymorphicModel, self).save(*args, **kwargs)
-#   File "/app/.heroku/python/lib/python3.8/site-packages/django/db/models/base.py", line 753, in save
-#     self.save_base(using=using, force_insert=force_insert,
-#   File "/app/.heroku/python/lib/python3.8/site-packages/django/db/models/base.py", line 777, in save_base
-#     pre_save.send(
-#   File "/app/.heroku/python/lib/python3.8/site-packages/django/dispatch/dispatcher.py", line 177, in send
-#     return [
-#   File "/app/.heroku/python/lib/python3.8/site-packages/django/dispatch/dispatcher.py", line 178, in <listcomp>
-#     (receiver, receiver(signal=self, sender=sender, **named))
-#   File "/app/.heroku/python/lib/python3.8/site-packages/juntagrico/lifecycle/sub.py", line 24, in sub_pre_save
-#     handle_activated_deactivated(instance, sender, sub_activated, sub_deactivated)
-#   File "/app/.heroku/python/lib/python3.8/site-packages/juntagrico/util/lifecycle.py", line 5, in handle_activated_deactivated
-#     activated.send(sender=sender, instance=instance)
-#   File "/app/.heroku/python/lib/python3.8/site-packages/django/dispatch/dispatcher.py", line 177, in send
-#     return [
-#   File "/app/.heroku/python/lib/python3.8/site-packages/django/dispatch/dispatcher.py", line 178, in <listcomp>
-#     (receiver, receiver(signal=self, sender=sender, **named))
-#   File "/app/.heroku/python/lib/python3.8/site-packages/juntagrico/lifecycle/sub.py", line 32, in handle_sub_activated
-#     for member in instance.recipients:
-#   File "/app/.heroku/python/lib/python3.8/site-packages/juntagrico/entity/subs.py", line 195, in recipients
-#     return [m.member for m in self.recipients_qs.all()]
-#   File "/app/.heroku/python/lib/python3.8/site-packages/juntagrico/entity/subs.py", line 189, in recipients_qs
-#     return self.memberships_for_state.filter(
-#   File "/app/.heroku/python/lib/python3.8/site-packages/juntagrico/entity/subs.py", line 203, in memberships_for_state
-#     if self.state == 'waiting' or self.state == 'inactive':
-#   File "/app/.heroku/python/lib/python3.8/site-packages/juntagrico/entity/__init__.py", line 84, in state
-#     return SimpleStateModel.__state_dict.get(self.__state_code, 'error')
-#   File "/app/.heroku/python/lib/python3.8/site-packages/juntagrico/entity/__init__.py", line 77, in __state_code
-#     active = (self.activation_date is not None and self.activation_date <= now) << 0
-# TypeError: '<=' not supported between instances of 'str' and 'datetime.date'
