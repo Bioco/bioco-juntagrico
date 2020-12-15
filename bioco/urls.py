@@ -9,7 +9,7 @@ from django.views.generic import RedirectView
 #from .views import Custom500View, error, politoloco_profile, beipackzettel_profile, openid_init, date
 import juntagrico
 from juntagrico.views import home as jhome
-
+from bioco.views import depot_overview_direct
 
 import django
 
@@ -31,6 +31,8 @@ urlpatterns = [
     url(r'^impersonate/', include('impersonate.urls')),
 
     url(r'^accounts/login/$',  LoginView.as_view()),
+
+    url(r'^depot_overview_html', depot_overview_direct, name='bioco-depot-overview-direct'),
 
 #    url(r'^',include('juntagrico_billing.urls')),
 #    url(r'^',include('juntagrico_pg.urls')),

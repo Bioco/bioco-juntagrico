@@ -287,7 +287,7 @@ ACTIVITY_AREA_INFO = "https://bioco.ch/#bioco" # TODO we dont have Taetigkeitsbe
 SHARE_PRICE = "250"
 PROMOTED_JOB_TYPES = ["Aktionstag"]
 PROMOTED_JOBS_AMOUNT = 2
-DEPOT_LIST_GENERATION_DAYS = [6] # TODO
+DEPOT_LIST_GENERATION_DAYS = [1, 4] # 0 = Monday
 BILLING = False
 BUSINESS_YEAR_START = {"day":1, "month":1}
 BUSINESS_YEAR_CANCELATION_MONTH = 9
@@ -311,4 +311,6 @@ OIDC_EXTRA_SCOPE_CLAIMS = 'bioco.oidc_provider_settings.CustomScopeClaims'
 FROM_FILTER = {'filter_expression': '.*@bioco\.ch',
                'replacement_from': 'intranet@bioco.ch'}
 
-
+from juntagrico.util import addons
+addons.config.register_user_menu('bioco_menu.html')
+#addons.config.register_admin_menu('bioco_admin_menu.html')
