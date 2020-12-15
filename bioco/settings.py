@@ -52,6 +52,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.debug',
+                'django.template.context_processors.request',
                 'django.template.context_processors.i18n',
                 'django.template.context_processors.media',
                 'django.template.context_processors.static',
@@ -242,8 +243,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
     Juntagrico Settings
 """
 VOCABULARY = {
-    'member': 'Loco',
-    'member_pl' : 'Locos',
+    'member': 'biocò',
+    'member_pl' : 'biocòs',
     'assignment' : 'Rüebli',
     'assignment_pl' : 'Rüebli',
     'share' : 'Anteilschein',
@@ -269,7 +270,7 @@ ORGANISATION_ADDRESS = {"name":"Gemüsegenossenschaft biocò",
 ORGANISATION_BANK_CONNECTION = {"PC" : "TODO",
             "IBAN" : "CH80 0839 0032 9330 1010 5",
             "BIC" : "ABSOCH22",
-            "NAME" : "Alternative BAnk Schweiz AG",
+            "NAME" : "Alternative Bank Schweiz AG",
             "ESR" : "01-123-45"}
 INFO_EMAIL = "info@bioco.ch"
 SERVER_URL = "www.bioco.ch"
@@ -292,15 +293,15 @@ BUSINESS_YEAR_START = {"day":1, "month":1}
 BUSINESS_YEAR_CANCELATION_MONTH = 9
 DEMO_USER = ''
 DEMO_PWD = ''
-IMAGES = {'status_100': '/static/img/erbse_voll.png',
-            'status_75': '/static/img/erbse_fast_voll.png',
-            'status_50': '/static/img/erbse_halb.png',
-            'status_25': '/static/img/erbse_fast_leer.png',
-            'status_0': '/static/img/erbse_leer.png',
-            'single_full': '/static/img/erbse_voll.png',
-            'single_empty': '/static/img/erbse_leer.png',
-            'single_core': '/static/img/erbse_voll_kernbereich.png',
-            'core': '/static/img/erbse_voll_kernbereich.png'
+IMAGES = {  'status_100': '/static/img/status_100.png',
+            'status_75': '/static/img/status_75.png',
+            'status_50': '/static/img/status_50.png',
+            'status_25': '/static/img/status_25.png',
+            'status_0': '/static/img/status_0.png',
+            'single_full': '/static/img/ruebli_color.png',
+            'single_empty': '/static/img/ruebli_bw.png',
+            'single_core': '/static/img/ruebli_color.png', # not distinguishing core and non-core
+            'core': '/static/img/ruebli_bw.png',  # not distinguishing core and non-core
 }
 DEFAULT_MAILER = 'bioco.mailer.Mailer'
 
