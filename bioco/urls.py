@@ -9,7 +9,7 @@ from django.views.generic import RedirectView
 #from .views import Custom500View, error, politoloco_profile, beipackzettel_profile, openid_init, date
 import juntagrico
 from juntagrico.views import home as jhome
-from bioco.views import depot_overview_direct
+import bioco.views
 
 import django
 
@@ -32,7 +32,6 @@ urlpatterns = [
 
     url(r'^accounts/login/$',  LoginView.as_view()),
 
-    url(r'^depot_overview_html', depot_overview_direct, name='bioco-depot-overview-direct'),
 
 #    url(r'^',include('juntagrico_billing.urls')),
 #    url(r'^',include('juntagrico_pg.urls')),
@@ -50,4 +49,7 @@ urlpatterns = [
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', admin.site.urls),
+
+    url(r'^depot_overview_html', bioco.views.depot_overview_direct, name='bioco-depot-overview-direct'),
+    url('my/all_deliveries', bioco.views.deliveries, name='bioco-all-deliveries'),  #
 ]

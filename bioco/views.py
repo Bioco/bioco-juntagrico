@@ -1,3 +1,6 @@
+import juntagrico
+from django.contrib.auth.decorators import login_required
+from juntagrico.dao.deliverydao import DeliveryDao
 from juntagrico.dao.listmessagedao import ListMessageDao
 from juntagrico.dao.subscriptiondao import SubscriptionDao
 from juntagrico.dao.subscriptionproductdao import SubscriptionProductDao
@@ -6,6 +9,22 @@ from juntagrico.util.temporal import weekdays
 from django.shortcuts import render
 from juntagrico.dao.depotdao import DepotDao
 from juntagrico.dao.extrasubscriptioncategorydao import ExtraSubscriptionCategoryDao
+
+# this is a copy from juntagrico/views.py but showing ALL deliveries, not filtered by date or subscription
+@login_required
+def deliveries(request):
+    '''
+    All deliveries to be sorted etc.
+    '''
+    renderdict = juntagrico.views.get_menu_dict(request)
+    deliveries = DeliveryDao.all_deliveries_order_by_delivery_date_desc()
+    renderdict.update({
+        'deliveries': deliveries,
+        'menu': {'deliveries': 'active'},
+    })
+
+    return render(request, 'deliveries.html', renderdict)
+
 
 # this is a copy from generate_depot_list.py to load the PDF on the fly instead of pregeneration
 # TODO get generation working
