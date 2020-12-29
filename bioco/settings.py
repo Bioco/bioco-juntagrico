@@ -221,7 +221,7 @@ ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 MEDIA_ROOT = 'media'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.ftp.FTPStorage'
-FTP_STORAGE_LOCATION = s.environ.get('FTP_STORAGE_LOCATION')
+FTP_STORAGE_LOCATION = os.environ.get('JUNTAGRICO_FTP_STORAGE_LOCATION')
 """
      Crispy Settings
 """
