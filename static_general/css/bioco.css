@@ -192,3 +192,8 @@ th {
 #filter-locos table {
     font-size: 10px;
 }
+
+/* Hide button where members can cancel their subscription */
+a[href$='/my/cancel/membership'] {
+    display: none;
+}
