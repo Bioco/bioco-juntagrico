@@ -10,7 +10,7 @@ from django.views.generic import RedirectView
 import juntagrico
 from juntagrico.views import home as jhome
 import bioco.views
-
+from juntagrico import views_subscription as juntagrico_subscription
 import django
 
 
@@ -49,6 +49,8 @@ urlpatterns = [
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', admin.site.urls),
+
+    url(r'^my/anmelden/', juntagrico_subscription.SignupView.as_view(), name='signup'), # backwards compatibility, can be deleted at some point
 
     url(r'^depot_overview_html', bioco.views.depot_overview_direct, name='bioco-depot-overview-direct'),
     url('my/all_deliveries', bioco.views.deliveries, name='bioco-all-deliveries'),  #
