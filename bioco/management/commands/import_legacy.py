@@ -9,8 +9,10 @@ from juntagrico.entity.jobs import ActivityArea, RecuringJob, JobType, Assignmen
 
 import datetime
 from django.utils.timezone import make_aware
-import traceback
 import json
+
+ACTIVATION_DATE = '2020-01-01'
+DEACTIVATION_DATE = '2020-12-31'
 
 class Command(BaseCommand):
     help = 'Imports old bioco data'
@@ -154,19 +156,19 @@ class Command(BaseCommand):
         abo.future_depot = None
         abo.primary_member = None # filled in later in second pass
         abo.nickname = 'Abo ' + fields['number']
-        abo.start_date = '2020-01-01' # TODO adjust all dates
+        abo.start_date = ACTIVATION_DATE
         if fields['active']:
             abo.end_date = None
         else:
-            abo.end_date = '2020-12-31'
+            abo.end_date = DEACTIVATION_DATE
         abo.notes = ""
         abo.save()
 
         if fields['active']:
-            abo.activate(datetime.date.fromisoformat('2020-01-01'))
+            abo.activate(datetime.date.fromisoformat(ACTIVATION_DATE))
         else:
-            abo.activate(datetime.date.fromisoformat('2020-01-01'))
-            abo.cancel(datetime.date.fromisoformat('2020-01-01'))
+            abo.activate(datetime.date.fromisoformat(ACTIVATION_DATE))
+            abo.deactivate(datetime.date.fromisoformat(DEACTIVATION_DATE))
 
     def import_anteilschein(self, data):
         fields = data['fields']
@@ -178,9 +180,9 @@ class Command(BaseCommand):
         share = Share(pk=data['pk'])
         share.member = Member.objects.get(pk=fields['loco'])
         if fields['paid']:
-            share.paid_date = datetime.date.fromisoformat('2020-01-01')
-            share.issue_date = datetime.date.fromisoformat('2020-01-01')
-            share.booking_date = datetime.date.fromisoformat('2020-01-01')
+            share.paid_date = datetime.date.fromisoformat(ACTIVATION_DATE)
+            share.issue_date = datetime.date.fromisoformat(ACTIVATION_DATE)
+            share.booking_date = datetime.date.fromisoformat(ACTIVATION_DATE)
         else:
             share.paid_date = None
             share.issue_date = None
@@ -237,18 +239,23 @@ class Command(BaseCommand):
             4: 4,
         }
         subpart_type = size_mapping[fields['groesse']]
-        #print(fields)
 
+        sub = Subscription.objects.get(pk=data['pk'])
         subpart = SubscriptionPart(pk=data['pk'])
-        subpart.subscription = Subscription.objects.get(pk=data['pk'])
+        subpart.subscription = sub
+        subpart.deactivation_date = sub.deactivation_date
+        subpart.cancellation_date = sub.cancellation_date
+        subpart.activation_date = sub.activation_date
+        subpart.creation_date = sub.creation_date
         subpart.type = SubscriptionType.objects.get(pk=subpart_type)
         subpart.save()
 
-        if fields['active']:
-            subpart.activate(datetime.date.fromisoformat('2020-01-01'))
-        else:
-            subpart.activate(datetime.date.fromisoformat('2020-01-01'))
-            subpart.cancel(datetime.date.fromisoformat('2020-01-01'))
+        if False:
+            if fields['active']:
+                subpart.activate(datetime.date.fromisoformat(ACTIVATION_DATE))
+            else:
+                subpart.activate(datetime.date.fromisoformat(ACTIVATION_DATE))
+                subpart.deactivate(datetime.date.fromisoformat(DEACTIVATION_DATE))
 
     def import_member(self, data):
         if data['pk'] == 1: return  # intranet admin
@@ -285,7 +292,7 @@ Du fährst zu den Depots.
 Du informierst dich über die Route zu den Depots http://bioco.ch/intranet-dokumente und den
 aktuellen Verteilplan ("Verteilübersicht" im Intranet)
 
-Bitte fülle das Fahrspesen-Rückforderungsformular aus und sende es an Anna.
+Bitte fülle das Fahrspesen-Rückforderungsformular aus und sende es an finanzen@bioco.ch.
 
 Dieser Einsatz kann (muss aber nicht) mit dem vorhergehenden Verpacken gebucht werden.
 Dafür bitte bei beiden Einsätzen eintragen. 
@@ -369,10 +376,12 @@ Dauer ca. 2 - 3h."""
         if not fields['abo']:
             return
 
+        sub = Subscription.objects.get(pk=fields['abo'])
         SubscriptionMembership.objects.create(
             member=Member.objects.get(pk=data['pk']),
-            subscription=Subscription.objects.get(pk=fields['abo']),
-            join_date=datetime.date.fromisoformat('2020-01-01')
+            subscription=sub,
+            join_date=datetime.date.fromisoformat(ACTIVATION_DATE),
+            leave_date=sub.deactivation_date
         )
 
     def import_depot(self, data):
