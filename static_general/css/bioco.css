@@ -193,6 +193,11 @@ th {
     font-size: 10px;
 }
 
+/* some buttons don't have a second class such as btn-success, explicitly color them without changing buttons with two classes */
+[class="btn"] {
+    background-color: #efaf45;
+}
+
 /* Hide button where members can cancel their subscription */
 a[href$='/my/cancel/membership'] {
     display: none;
