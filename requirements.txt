@@ -14,4 +14,4 @@ git+https://github.com/nixnuex/juntagrico-polling.git
 whitenoise==5.2.0
 
 django-storages>=1.1.8
-boto>=2.29.1
+boto3>=1.16.0
