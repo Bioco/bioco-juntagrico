@@ -405,7 +405,16 @@ Dauer ca. 2 - 3h."""
         from django.core.management.color import no_style
         from django.db import connection
 
-        sequence_sql = connection.ops.sequence_reset_sql(no_style(), [User, Group, Depot, Member, Subscription, SubscriptionPart, SubscriptionSize, SubscriptionType, SubscriptionProduct])
+        tables = [
+            User, Group, Permission,
+            Depot,
+            Member, SubscriptionMembership,
+            Subscription, SubscriptionPart,
+            SubscriptionSize, SubscriptionType, SubscriptionProduct,
+            Share,
+            ActivityArea, RecuringJob, JobType, Assignment, JobExtraType, JobExtra
+        ]
+        sequence_sql = connection.ops.sequence_reset_sql(no_style(), tables)
         with connection.cursor() as cursor:
             for sql in sequence_sql:
                 cursor.execute(sql)
