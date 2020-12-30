@@ -10,11 +10,12 @@ ALLOWED_HOSTS = [
     'intranet.bioco.ch',
     'intranet-new.bioco.ch',
     'intranet-test.bioco.ch',
-    'bioco-new.herokuapp.com',
     'bioco.herokuapp.com',
+    'bioco-new.herokuapp.com',
+    'bioco-test.herokuapp.com',
 ]
 if DEBUG:
-    ALLOWED_HOSTS += ['localhost'] # TODO localhost for testing only
+    ALLOWED_HOSTS += ['localhost']
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = None
 
@@ -120,7 +121,6 @@ if DEBUG is True:
     for key in list(os.environ.keys()):
         if key.startswith("JUNTAGRICO_EMAIL_WHITELISTED"):
             whitelist_email_from_env(key)
-
 
 EMAIL_HOST = os.environ.get('JUNTAGRICO_EMAIL_HOST')
 EMAIL_HOST_USER = os.environ.get('JUNTAGRICO_EMAIL_USER')
@@ -244,45 +244,48 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 """
 VOCABULARY = {
     'member': 'biocò',
-    'member_pl' : 'biocòs',
-    'assignment' : 'Rüebli',
-    'assignment_pl' : 'Rüebli',
-    'share' : 'Anteilschein',
-    'share_pl' : 'Anteilscheine',
-    'subscription' : 'Abo',
-    'subscription_pl' : 'Abos',
-    'co_member' : 'Mitabonnent',
-    'co_member_pl' : 'Mitabonnenten',
-    'price' : 'Betriebsbeitrag',
-    'member_type' : 'Mitglied',
-    'member_type_pl' : 'Mitglieder',
-    'depot' : 'Depot',
-    'depot_pl' : 'Depots'
+    'member_pl': 'biocòs',
+    'assignment': 'Rüebli',
+    'assignment_pl': 'Rüebli',
+    'share': 'Anteilschein',
+    'share_pl': 'Anteilscheine',
+    'subscription': 'Abo',
+    'subscription_pl': 'Abos',
+    'co_member': 'Mitabonnent',
+    'co_member_pl': 'Mitabonnenten',
+    'price': 'Betriebsbeitrag',
+    'member_type': 'Mitglied',
+    'member_type_pl': 'Mitglieder',
+    'depot': 'Depot',
+    'depot_pl': 'Depots'
 }
-ORGANISATION_NAME = "bioco"
+ORGANISATION_NAME = "biocò"
 ORGANISATION_LONG_NAME = "biocò - Gemüsegenossenschaft Region Baden Brugg"
-ORGANISATION_ADDRESS = {"name":"Gemüsegenossenschaft biocò",
-            "street" : "Allmendstrasse",
-            "number" : "39b",
-            "zip" : "5400",
-            "city" : "Baden",
-            "extra" : "c/o Anna Zehnder"}
-ORGANISATION_BANK_CONNECTION = {"PC" : "TODO",
-            "IBAN" : "CH80 0839 0032 9330 1010 5",
-            "BIC" : "ABSOCH22",
-            "NAME" : "Alternative Bank Schweiz AG",
-            "ESR" : "01-123-45"}
+ORGANISATION_ADDRESS = {
+    "name": "Gemüsegenossenschaft biocò",
+    "street": "Allmendstrasse",
+    "number": "39b",
+    "zip": "5400",
+    "city": "Baden",
+    "extra": "c/o Anna Zehnder"
+}
+ORGANISATION_BANK_CONNECTION = {
+    "PC": "46-110-7",
+    "IBAN": "CH80 0839 0032 9330 1010 5",
+    "BIC": "ABSOCH22",
+    "NAME": "Alternative Bank Schweiz AG"
+}
 INFO_EMAIL = "info@bioco.ch"
 SERVER_URL = "www.bioco.ch"
 ADMINPORTAL_NAME = "biocò Intranet"
-ADMINPORTAL_SERVER_URL = "intranet.bioco.ch" # TODO
+ADMINPORTAL_SERVER_URL = "intranet.bioco.ch"
 BUSINESS_REGULATIONS = "https://bioco.ch/wp-content/uploads/2018/12/1812_bioco_Betriebsreglement.pdf"
 BYLAWS = "https://bioco.ch/wp-content/uploads/2017/01/1701-Statuten.pdf"
-MAIL_TEMPLATE = "mails/ooooemail.html"
+MAIL_TEMPLATE = "bioco_email.html"
 STYLE_SHEET = "/static/css/bioco.css"
 FAVICON = "/static/img/bioco_favicon3.png"
 FAQ_DOC = "https://bioco.ch/#bioco" # TODO we dont have an FAQ
-EXTRA_SUB_INFO = "https://bioco.ch/#bioco" # TODO we dont have an Zusatzabos
+EXTRA_SUB_INFO = "https://bioco.ch/#bioco" # TODO we dont have a Zusatzabos
 ACTIVITY_AREA_INFO = "https://bioco.ch/#bioco" # TODO we dont have Taetigkeitsbereich Infos
 SHARE_PRICE = "250"
 PROMOTED_JOB_TYPES = ["Aktionstag"]

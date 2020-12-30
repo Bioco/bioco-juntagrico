@@ -1,0 +1,42 @@
+{% load config %}
+<style>
+    @import url(http://fonts.googleapis.com/css?family=Philosopher|Overlock:400,700,900|Philosopher:400,700|Ubuntu);
+</style>
+<body style="@import url(http://fonts.googleapis.com/css?family=Philosopher|Overlock:400,700,900|Philosopher:400,700|Ubuntu);">
+<table width="600px">
+    <tr>
+        <td style="padding:20px; padding-bottom: 40px;">
+            <a href="{{ serverurl }}">
+                <img src="{{ serverurl }}/static/img/bioco_logo_small.png">
+            </a>
+        </td>
+        <td style="font-size:14px;font-family: 'Overlock', sans-serif; font-weight: 700; padding:20px; color:#7f1d42; padding-top: 5px;">
+            <h1>{% config "organisation_name" %}</h1>
+            <h2>{% config "organisation_long_name" %}</h2>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="font-size:14px;font-family: 'Overlock', sans-serif; font-weight: 700; padding:20px; padding-top: 5px; padding-bottom: 5px; background-color: #7f1d42; color: #ffffff;">
+            <h2>{{ subject }}</h2>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="font-size:14px;font-family: 'Ubuntu', sans-serif; padding:20px; padding-top: 10px; padding-bottom: 30px;">
+            {% block content %}{% endblock %}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="padding:20px; padding-top:10px; padding-bottom:10px; background-color: #f2dede;">
+            <strong>{% config "organisation_name" %}</strong>
+            &mdash;
+            {% config "organisation_long_name" %}
+            <br/>
+            Web: <a href="http://{% config "server_url" %}">{% config "server_url" %}</a>
+            &nbsp;|&nbsp;
+            Email: {% config "info_email" %}
+            &nbsp;|&nbsp;
+            Intranet: <a href="{{ serverurl }}">{% config "adminportal_server_url" %}</a>
+        </td>
+    </tr>
+</table>
+</body>
