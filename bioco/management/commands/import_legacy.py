@@ -12,7 +12,7 @@ from django.utils.timezone import make_aware
 import json
 
 ACTIVATION_DATE = '2020-01-01'
-DEACTIVATION_DATE = '2020-12-31'
+DEACTIVATION_DATE = '2020-12-29'
 
 class Command(BaseCommand):
     help = 'Imports old bioco data'
