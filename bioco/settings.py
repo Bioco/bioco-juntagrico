@@ -11,9 +11,11 @@ ALLOWED_HOSTS = [
     'intranet.bioco.ch',
     'intranet-new.bioco.ch',
     'intranet-test.bioco.ch',
+    'intranet-old.bioco.ch',
     'bioco.herokuapp.com',
     'bioco-new.herokuapp.com',
     'bioco-test.herokuapp.com',
+    'bioco-old.herokuapp.com',
 ]
 if DEBUG:
     ALLOWED_HOSTS += ['localhost']
@@ -136,7 +138,6 @@ EMAIL_USE_SSL = os.environ.get('JUNTAGRICO_EMAIL_SSL', 'False')=='True'
 """
 ADMINS = [
     ('Admin', os.environ.get('JUNTAGRICO_ADMIN_EMAIL')),
-    ('Juntagrico', os.environ.get('JUNTAGRICO_DS_EMAIL'))
 ]
 MANAGERS = ADMINS
 SERVER_EMAIL="intranet@bioco.ch"
@@ -286,7 +287,7 @@ BUSINESS_REGULATIONS = "https://bioco.ch/wp-content/uploads/2018/12/1812_bioco_B
 BYLAWS = "https://bioco.ch/wp-content/uploads/2017/01/1701-Statuten.pdf"
 MAIL_TEMPLATE = "bioco_email.html"
 STYLE_SHEET = "/static/css/bioco.css"
-FAVICON = "/static/img/bioco_favicon3.png"
+FAVICON = "/static/img/bioco_favicon.png"
 FAQ_DOC = "https://bioco.ch/#bioco" # TODO we dont have an FAQ
 EXTRA_SUB_INFO = "https://bioco.ch/#bioco" # TODO we dont have a Zusatzabos
 ACTIVITY_AREA_INFO = "https://bioco.ch/#bioco" # TODO we dont have Taetigkeitsbereich Infos
