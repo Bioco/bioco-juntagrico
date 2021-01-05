@@ -154,9 +154,7 @@ AUTHENTICATION_BACKENDS = (
     DB Settings
 """
 DATABASES = {'default': {}}
-try:
-    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-except:
+if os.environ.get('JUNTAGRICO_DATABASE_ENGINE'):
     DATABASES['default'] = {
             'ENGINE': os.environ.get('JUNTAGRICO_DATABASE_ENGINE','django.db.backends.sqlite3'),
             'NAME': os.environ.get('JUNTAGRICO_DATABASE_NAME','bioco.db'),
@@ -165,6 +163,8 @@ except:
             'HOST': os.environ.get('JUNTAGRICO_DATABASE_HOST'), #'localhost', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
             'PORT': os.environ.get('JUNTAGRICO_DATABASE_PORT', False), #''', # Set to empty string for default.
         }
+else:
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 """
     Caching  Settings
