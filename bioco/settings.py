@@ -1,5 +1,6 @@
 # Django settings for bioco project.
 import os
+import dj_database_url
 
 """
     General Settings
@@ -10,9 +11,11 @@ ALLOWED_HOSTS = [
     'intranet.bioco.ch',
     'intranet-new.bioco.ch',
     'intranet-test.bioco.ch',
+    'intranet-old.bioco.ch',
     'bioco.herokuapp.com',
     'bioco-new.herokuapp.com',
     'bioco-test.herokuapp.com',
+    'bioco-old.herokuapp.com',
 ]
 if DEBUG:
     ALLOWED_HOSTS += ['localhost']
@@ -135,7 +138,6 @@ EMAIL_USE_SSL = os.environ.get('JUNTAGRICO_EMAIL_SSL', 'False')=='True'
 """
 ADMINS = [
     ('Admin', os.environ.get('JUNTAGRICO_ADMIN_EMAIL')),
-    ('Juntagrico', os.environ.get('JUNTAGRICO_DS_EMAIL'))
 ]
 MANAGERS = ADMINS
 SERVER_EMAIL="intranet@bioco.ch"
@@ -152,16 +154,18 @@ AUTHENTICATION_BACKENDS = (
 """
     DB Settings
 """
-DATABASES = {
-    'default': {
-        'ENGINE': os.environ.get('JUNTAGRICO_DATABASE_ENGINE','django.db.backends.sqlite3'), 
-        'NAME': os.environ.get('JUNTAGRICO_DATABASE_NAME','bioco.db'), 
-        'USER': os.environ.get('JUNTAGRICO_DATABASE_USER'), #''junatagrico', # The following settings are not used with sqlite3:
-        'PASSWORD': os.environ.get('JUNTAGRICO_DATABASE_PASSWORD'), #''junatagrico',
-        'HOST': os.environ.get('JUNTAGRICO_DATABASE_HOST'), #'localhost', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': os.environ.get('JUNTAGRICO_DATABASE_PORT', False), #''', # Set to empty string for default.
-    }
-}
+DATABASES = {'default': {}}
+if os.environ.get('JUNTAGRICO_DATABASE_ENGINE'):
+    DATABASES['default'] = {
+            'ENGINE': os.environ.get('JUNTAGRICO_DATABASE_ENGINE','django.db.backends.sqlite3'),
+            'NAME': os.environ.get('JUNTAGRICO_DATABASE_NAME','bioco.db'),
+            'USER': os.environ.get('JUNTAGRICO_DATABASE_USER'), #''junatagrico', # The following settings are not used with sqlite3:
+            'PASSWORD': os.environ.get('JUNTAGRICO_DATABASE_PASSWORD'), #''junatagrico',
+            'HOST': os.environ.get('JUNTAGRICO_DATABASE_HOST'), #'localhost', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+            'PORT': os.environ.get('JUNTAGRICO_DATABASE_PORT', False), #''', # Set to empty string for default.
+        }
+else:
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 """
     Caching  Settings
@@ -306,7 +310,7 @@ BUSINESS_REGULATIONS = "https://bioco.ch/wp-content/uploads/2018/12/1812_bioco_B
 BYLAWS = "https://bioco.ch/wp-content/uploads/2017/01/1701-Statuten.pdf"
 MAIL_TEMPLATE = "bioco_email.html"
 STYLE_SHEET = "/static/css/bioco.css"
-FAVICON = "/static/img/bioco_favicon3.png"
+FAVICON = "/static/img/bioco_favicon.png"
 FAQ_DOC = "https://bioco.ch/#bioco" # TODO we dont have an FAQ
 EXTRA_SUB_INFO = "https://bioco.ch/#bioco" # TODO we dont have a Zusatzabos
 ACTIVITY_AREA_INFO = "https://bioco.ch/#bioco" # TODO we dont have Taetigkeitsbereich Infos

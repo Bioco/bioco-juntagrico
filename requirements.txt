@@ -12,6 +12,6 @@ django-oidc-provider==0.7.0
 git+https://github.com/juntagrico/juntagrico-pg.git
 git+https://github.com/nixnuex/juntagrico-polling.git
 whitenoise==5.2.0
-
+dj-database-url==0.5.0
 django-storages>=1.1.8
 boto3>=1.16.0
