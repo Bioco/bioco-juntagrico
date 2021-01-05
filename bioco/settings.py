@@ -223,8 +223,6 @@ MEDIA_ROOT = 'media'
 #DEFAULT_FILE_STORAGE = 'storages.backends.ftp.FTPStorage'
 #FTP_STORAGE_LOCATION = os.environ.get('JUNTAGRICO_FTP_STORAGE_LOCATION')
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
 try:
      AWS_ACCESS_KEY_ID = os.environ['JUNTAGRICO_AWS_KEY_ID']
      AWS_SECRET_ACCESS_KEY = os.environ['JUNTAGRICO_AWS_KEY']
