@@ -241,10 +241,10 @@ AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
 AWS_PUBLIC_MEDIA_LOCATION = 'media'
-DEFAULT_FILE_STORAGE = 'mysite.storage_backends.PublicMediaStorage'
+DEFAULT_FILE_STORAGE = 'bioco.storage_backends.PublicMediaStorage'
 
 MEDIA_ROOT = 'media/'
-MEDIA_URL = 'https://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
+MEDIA_URL = 'https://%s.s3.amazonaws.com/%s' % % (AWS_STORAGE_BUCKET_NAME, AWS_PUBLIC_MEDIA_LOCATION)
     
 """
      Crispy Settings
