@@ -18,7 +18,7 @@ ALLOWED_HOSTS = [
     'bioco-old.herokuapp.com',
 ]
 if DEBUG:
-    ALLOWED_HOSTS += ['localhost']
+    ALLOWED_HOSTS += ['localhost', '127.0.0.1']
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = None
 
@@ -282,14 +282,16 @@ VOCABULARY = {
     'share_pl': 'Anteilscheine',
     'subscription': 'Abo',
     'subscription_pl': 'Abos',
-    'co_member': 'Mitabonnent',
-    'co_member_pl': 'Mitabonnenten',
+    'co_member': 'MitabonnentIn',
+    'co_member_pl': 'MitabonnentInnen',
     'price': 'Betriebsbeitrag',
     'member_type': 'Mitglied',
     'member_type_pl': 'Mitglieder',
     'depot': 'Depot',
-    'depot_pl': 'Depots'
+    'depot_pl': 'Depots',
+    'package': 'Korb',
 }
+
 ORGANISATION_NAME = "biocò"
 ORGANISATION_LONG_NAME = "biocò - Gemüsegenossenschaft Region Baden Brugg"
 ORGANISATION_ADDRESS = {
