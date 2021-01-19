@@ -221,9 +221,36 @@ IMPERSONATE = {
     File & Storage Settings
 """
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+MEDIA_ROOT = 'media/'
 
-MEDIA_ROOT = 'media'
+if os.environ.get('JUNTAGRICO_AWS_KEY_ID'):
+    try:
+         AWS_ACCESS_KEY_ID = os.environ['JUNTAGRICO_AWS_KEY_ID']
+         AWS_SECRET_ACCESS_KEY = os.environ['JUNTAGRICO_AWS_KEY']
+         AWS_STORAGE_BUCKET_NAME = os.environ['JUNTAGRICO_AWS_BUCKET_NAME']
+    except KeyError:
+         raise KeyError('Need to define AWS environment variables: ' +
+                        'AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, and AWS_STORAGE_BUCKET_NAME')
 
+      # Default Django Storage API behavior - don't overwrite files with same name
+    AWS_S3_FILE_OVERWRITE = False
+
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',
+    }
+    AWS_PUBLIC_MEDIA_LOCATION = 'media'
+
+    DEFAULT_FILE_STORAGE = 'bioco.storage_backends.PublicMediaStorage'
+
+    MEDIA_URL = 'https://%s.s3.amazonaws.com/%s/' % (AWS_STORAGE_BUCKET_NAME, AWS_PUBLIC_MEDIA_LOCATION)
+else:
+    # not using AWS, e.g. when testing locally
+    pass
+
+    # using FTP:
+    # DEFAULT_FILE_STORAGE = 'storages.backends.ftp.FTPStorage'
+    # FTP_STORAGE_LOCATION = os.environ.get('JUNTAGRICO_FTP_STORAGE_LOCATION')
 
 """
      Crispy Settings
