@@ -7,6 +7,8 @@ import dj_database_url
 """
 DEBUG = os.environ.get("JUNTAGRICO_DEBUG", "True") == "True"
 
+SECURE_SSL_REDIRECT = os.environ.get(ssl_redirect)
+
 ALLOWED_HOSTS = [
     'intranet.bioco.ch',
     'intranet-new.bioco.ch',
