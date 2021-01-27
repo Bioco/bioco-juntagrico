@@ -202,6 +202,7 @@ th {
 a[href$='/my/cancel/membership'] {
     display: none;
 }
+
 /* Hide duplicate /my/deliveries entry in menu */
 a[href$='/my/deliveries'] {
     display: none;
