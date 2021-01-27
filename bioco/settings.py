@@ -96,7 +96,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    #'juntagrico_billing',
+    'juntagrico_billing',
     #'juntagrico_pg',
     #'juntagrico_polling',
     #'juntagrico_webdav',
@@ -324,7 +324,6 @@ SHARE_PRICE = "250"
 PROMOTED_JOB_TYPES = ["Aktionstag"]
 PROMOTED_JOBS_AMOUNT = 2
 DEPOT_LIST_GENERATION_DAYS = [1, 4] # 0 = Monday
-BILLING = False
 BUSINESS_YEAR_START = {"day":1, "month":1}
 BUSINESS_YEAR_CANCELATION_MONTH = 9
 DEMO_USER = ''
