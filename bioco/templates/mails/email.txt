@@ -1,0 +1,9 @@
+{% load config %}
+{% spaceless %}
+{% block content %}{% endblock %}
+{% endspaceless %}
+
+============================================================
+{% autoescape off %}{% config "organisation_long_name" %}{% endautoescape %}
+Web: {% config "server_url" %} | Email: {% config "info_email" %} | Intranet: {% config "adminportal_server_url" %}
+============================================================
