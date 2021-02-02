@@ -104,6 +104,7 @@ INSTALLED_APPS = (
     'impersonate',
     'oauth2_provider',
     'oidc_provider',
+    'adminsortable2',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
