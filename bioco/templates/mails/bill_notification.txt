@@ -1,0 +1,47 @@
+{% extends "mails/email.txt" %}
+{% load i18n %}
+{% load l10n %}
+{% load config %}
+{% block content %}
+{% config "organisation_name" as organisation_name %}
+{% config "organisation_address" as addr %}
+{% config "currency" as currency %}
+{% vocabulary "finance_contact" as v_finance_contact %}
+{% vocabulary "ombudsman_contact" as v_ombudsman_contact %}
+{% blocktrans with fn=member.first_name %}Dear {{ fn }}{% endblocktrans %}
+
+{% blocktrans %}Your current {{ organisation_name }} Bill is ready.{% endblocktrans %}
+{% blocktrans with number=bill.id period=bill.business_year concerning=bill.item_kinds amount=bill.amount|floatformat:2 %}
+Bill-Number:         {{ number }}
+Period:              {{ period }}
+Concerning:          {{ concerning }}
+Amount:              {{ currency }} {{ amount }}{% endblocktrans %}
+
+{% trans "Find details on the website at" %} {{ serverurl }}{% url 'jb:user-bill' bill.id %}
+
+{% trans "Please pay specifying bill number to:" %}
+IBAN {{ payment_type.iban }}
+{{ payment_type.name }}
+{% trans "in favor of" %}
+{{ addr.name }}, {{ addr.zip }} {{ addr.city }}
+
+Nur du erhälst eine Rechnung für dein Abo, falls du dein Abo teilst, bitte ich dich die Rechnung an deine* Abopartner*in weiterzuleiten.
+So kann er/sie auch seinen/ihren Anteil der Rechnung zahlen.
+Falls du keine Mailadresse von deiner/deinem Abopartner*in hast, kannst du die Rechnung gerne an mich ({{ v_finance_contact }}) senden, dann leite ich sie weiter.
+
+Im Betriebsreglement ist folgendes vermerkt:
+Solidaritäts-Fonds: Gutverdienende zahlen mindestens 100 Fr. mehr pro Abo.
+Der Mehrertrag fliesst in einen Topf, der für die Wenigverdienenden eine Beitragsreduktion ermöglicht.
+Zu welcher Einkommensgruppe einE AbonnentIn gehört, entscheidet sie/er selber.
+
+In den letzten Jahren ist reichlich in den Solidaritätsfonds eingezahlt worden. Vielen Dank dafür!
+
+Falls du vom Solidaritäts-Fonds unterstützt werden möchtest, kannst du dich sehr gerne bei der Ombudsstelle ({{ v_ombudsman_contact }}) melden.
+
+Und auch dieses Jahr darfst du natürlich wieder etwas mehr für's Abo zahlen :-).
+
+Wenn du noch Fragen zur Rechnung hast, oder einen Einzahlungsschein bekommen möchtest, kannst du dich bei mir melden.
+Bis bald auf dem Feld und liebe Grüsse,
+{{ v_finance_contact }}
+
+{% endblock %}
