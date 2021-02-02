@@ -290,6 +290,8 @@ VOCABULARY = {
     'depot': 'Depot',
     'depot_pl': 'Depots',
     'package': 'Korb',
+    'ombudsman_contact': os.environ.get('BIOCO_OMBUDSMAN_CONTACT'),
+    'finance_contact': os.environ.get('BIOCO_FINANCE_CONTACT'),
 }
 
 ORGANISATION_NAME = "biocò"
