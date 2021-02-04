@@ -40,7 +40,7 @@ Falls du vom Solidaritäts-Fonds unterstützt werden möchtest, kannst du dich s
 
 Und auch dieses Jahr darfst du natürlich wieder etwas mehr für's Abo zahlen :-).
 
-Wenn du noch Fragen zur Rechnung hast, oder einen Einzahlungsschein bekommen möchtest, kannst du dich bei mir melden.
+Wenn du noch Fragen zur Rechnung hast, die Rechnung in Raten zahlen oder einen Einzahlungsschein bekommen möchtest, kannst du dich bei mir melden.
 Bis bald auf dem Feld und liebe Grüsse,
 {{ v_finance_contact }}
 
