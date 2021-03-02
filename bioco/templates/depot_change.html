@@ -1,0 +1,19 @@
+{% comment %}
+    The feature to change depot by the user is deactivated because we have depots with a limited capacity,
+    until the depot.capacity feature is actually implemented.
+{% endcomment %}
+{% extends "base.html" %}
+{% load i18n %}
+{% load config %}
+{% block page_title %}
+    {% vocabulary "depot" as v_depot %}
+    <h3>
+        {% blocktrans %}{{ v_depot }} ändern{% endblocktrans %}
+    </h3>
+{% endblock %}
+{% block content %}
+    {% vocabulary "depot" as v_depot %}
+    {{ v_depot }} Änderungen können aktuell nicht selbst vorgenommen werden.
+    <br/>
+    <a href="{% url 'contact' %}">Bitte wende dich mit deinem Änderungs-Wunsch an uns</a>.
+{% endblock %}
