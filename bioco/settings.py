@@ -340,6 +340,9 @@ IMAGES = {  'status_100': '/static/img/status_100.png',
             'single_empty': '/static/img/ruebli_bw.png',
             'single_core': '/static/img/ruebli_color.png', # not distinguishing core and non-core
             'core': '/static/img/ruebli_bw.png',  # not distinguishing core and non-core
+            'job_occupied': '/static/img/erbse_voll.png',
+            'job_free': '/static/img/erbse_leer.png',
+            'job_multiplier': '/static/img/ruebli_color.png',
 }
 DEFAULT_MAILER = 'bioco.mailer.Mailer'
 
