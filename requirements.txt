@@ -1,8 +1,9 @@
 git+http://github.com/juntagrico/juntagrico.git@87e46d099ac392df0a8c6eafa61a077e0a7169d5#egg=juntagrico
-git+https://github.com/juntagrico/juntagrico-webdav.git@7981fc186c650bf558fe625dab3cf72c149ed348#egg=juntagrico-webdav
 git+https://github.com/juntagrico/juntagrico-billing.git@d08512cf4c7e652e63e76b169eb5d33068355213#egg=juntagrico-billing
-git+https://github.com/juntagrico/juntagrico-pg.git@5b6879609845a11d826c3a2b08a2041a00a75fa2#egg=juntagrico-pg
-git+https://github.com/nixnuex/juntagrico-polling.git@7981fc186c650bf558fe625dab3cf72c149ed348#egg=juntagrico-polling
+
+#git+https://github.com/juntagrico/juntagrico-webdav.git@7981fc186c650bf558fe625dab3cf72c149ed348#egg=juntagrico-webdav
+#git+https://github.com/juntagrico/juntagrico-pg.git@5b6879609845a11d826c3a2b08a2041a00a75fa2#egg=juntagrico-pg
+#git+https://github.com/nixnuex/juntagrico-polling.git@7981fc186c650bf558fe625dab3cf72c149ed348#egg=juntagrico-polling
 
 gunicorn==20.0.4
 # psycopg2==2.8.4
