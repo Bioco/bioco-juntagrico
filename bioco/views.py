@@ -8,7 +8,6 @@ from juntagrico.util.pdf import render_to_pdf_storage, render_to_pdf_http
 from juntagrico.util.temporal import weekdays
 from django.shortcuts import render
 from juntagrico.dao.depotdao import DepotDao
-from juntagrico.dao.extrasubscriptioncategorydao import ExtraSubscriptionCategoryDao
 
 # this is a copy from juntagrico/views.py but showing ALL deliveries, not filtered by date or subscription
 @login_required
@@ -32,7 +31,7 @@ def depot_overview_direct(request):
     depot_dict = {
         'subscriptions': SubscriptionDao.all_active_subscritions(),
         'products': SubscriptionProductDao.get_all_for_depot_list(),
-        'extra_sub_categories': ExtraSubscriptionCategoryDao.categories_for_depot_list_ordered(),
+        'extra_sub_categories': [],
         'depots': DepotDao.all_depots_order_by_code(),
         'weekdays': {weekdays[weekday['weekday']]: weekday['weekday'] for weekday in
                      DepotDao.distinct_weekdays()},
