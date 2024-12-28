@@ -12,6 +12,7 @@ ALLOWED_HOSTS = [
     'intranet-new.bioco.ch',
     'intranet-test.bioco.ch',
     'intranet-old.bioco.ch',
+    'bioco.juntagrico.science',
     'bioco.herokuapp.com',
     'bioco-new.herokuapp.com',
     'bioco-test.herokuapp.com',
