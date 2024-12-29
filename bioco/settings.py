@@ -7,6 +7,8 @@ import dj_database_url
 """
 DEBUG = os.environ.get("JUNTAGRICO_DEBUG", "True") == "True"
 
+DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
+
 ALLOWED_HOSTS = [
     'intranet.bioco.ch',
     'intranet-new.bioco.ch',
