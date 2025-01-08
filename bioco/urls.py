@@ -1,4 +1,5 @@
 from django.conf.urls import include, url
+from django.urls import path, re_path
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -18,42 +19,42 @@ urlpatterns = [
 #	url('^500$', Custom500View.as_view()),    
 #	url('^500/test$',error),
     
-    url('^$', jhome),
-    url(r'^favicon\.ico$', RedirectView.as_view(url=Config.favicon(), permanent=True)),
+    re_path('^$', jhome),
+    re_path(r'^favicon\.ico$', RedirectView.as_view(url=Config.favicon(), permanent=True)),
 
-#    url(r'^info/date$', date),
+#    re_path(r'^info/date$', date),
 	
-#    url(r'^politoloco/profile$', politoloco_profile),
-#    url(r'^beipackzettel/profile$', beipackzettel_profile),
+#    re_path(r'^politoloco/profile$', politoloco_profile),
+#    re_path(r'^beipackzettel/profile$', beipackzettel_profile),
 
-    url(r'^', include('juntagrico.urls')),
-    url(r'^impersonate/', include('impersonate.urls')),
+    re_path(r'^', include('juntagrico.urls')),
+    re_path(r'^impersonate/', include('impersonate.urls')),
 
-    url(r'^accounts/login/$', LoginView.as_view()),
+    re_path(r'^accounts/login/$', LoginView.as_view()),
 
-    url(r'^',include('juntagrico_billing.urls')),
-#    url(r'^',include('juntagrico_pg.urls')),
+    re_path(r'^',include('juntagrico_billing.urls')),
+#    re_path(r'^',include('juntagrico_pg.urls')),
 
-    url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
-#    url(r'^openid/', include('oidc_provider.urls', namespace='oidc_provider')),
+    re_path(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+#    re_path(r'^openid/', include('oidc_provider.urls', namespace='oidc_provider')),
 
-#    url(r'^openidinit$', openid_init),
-#    url(r'^', include('juntagrico_webdav.urls')),
+#    re_path(r'^openidinit$', openid_init),
+#    re_path(r'^', include('juntagrico_webdav.urls')),
 	
-#    url(r'^', include('juntagrico_polling.urls')),
+#    re_path(r'^', include('juntagrico_polling.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls)),
+    # re_path(r'^admin/doc/', include('django.contrib.admindocs.urls)),
 
     # Uncomment the next line to enable the admin:
-    url(r'^admin/', admin.site.urls),
+    re_path(r'^admin/', admin.site.urls),
 
     # backwards compatibility, can be deleted at some point
-    url(r'^my/anmelden/', juntagrico_subscription.SignupView.as_view(), name='signup'),
+    re_path(r'^my/anmelden/', juntagrico_subscription.SignupView.as_view(), name='signup'),
 
     # workaround: on the fly generated PDF
-    url(r'^depot_overview_html', bioco.views.depot_overview_direct, name='bioco-depot-overview-direct'),
+    re_path(r'^depot_overview_html', bioco.views.depot_overview_direct, name='bioco-depot-overview-direct'),
 
     # workaround: all deliveries (not filtered to day or own subscription type)
-    url('my/all_deliveries', bioco.views.deliveries, name='bioco-all-deliveries'),  #
+    re_path('my/all_deliveries', bioco.views.deliveries, name='bioco-all-deliveries'),  #
 ]

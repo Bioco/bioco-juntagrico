@@ -1,5 +1,5 @@
-juntagrico==1.3.13
-git+https://github.com/juntagrico/juntagrico-billing.git@22486aacc0537f51d0b056e39b4ac4a02633b7a0#egg=juntagrico-billing
+juntagrico==1.4.0
+git+https://github.com/juntagrico/juntagrico-billing.git@486370894005a8995357e1fec8669cefcac51656
 
 gunicorn==20.0.4
 # psycopg2==2.8.4

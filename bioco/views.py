@@ -8,7 +8,6 @@ from juntagrico.util.pdf import render_to_pdf_storage, render_to_pdf_http
 from juntagrico.util.temporal import weekdays
 from django.shortcuts import render
 from juntagrico.dao.depotdao import DepotDao
-from juntagrico.dao.extrasubscriptioncategorydao import ExtraSubscriptionCategoryDao
 
 # this is a copy from juntagrico/views.py but showing ALL deliveries, not filtered by date or subscription
 @login_required
@@ -16,12 +15,11 @@ def deliveries(request):
     '''
     All deliveries to be sorted etc.
     '''
-    renderdict = juntagrico.views.get_menu_dict(request)
     deliveries = DeliveryDao.all_deliveries_order_by_delivery_date_desc()
-    renderdict.update({
+    renderdict = {
         'deliveries': deliveries,
         'menu': {'deliveries': 'active'},
-    })
+    }
 
     return render(request, 'deliveries.html', renderdict)
 
@@ -32,10 +30,9 @@ def depot_overview_direct(request):
     depot_dict = {
         'subscriptions': SubscriptionDao.all_active_subscritions(),
         'products': SubscriptionProductDao.get_all_for_depot_list(),
-        'extra_sub_categories': ExtraSubscriptionCategoryDao.categories_for_depot_list_ordered(),
-        'depots': DepotDao.all_depots_order_by_code(),
+        'depots': DepotDao.all_depots_ordered(),
         'weekdays': {weekdays[weekday['weekday']]: weekday['weekday'] for weekday in
-                     DepotDao.distinct_weekdays()},
+                     DepotDao.distinct_weekdays_for_depot_list()},
         'messages': ListMessageDao.all_active()
     }
 
