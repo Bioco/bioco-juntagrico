@@ -25,7 +25,7 @@ IBAN {{ payment_type.iban }}
 {% trans "in favor of" %}
 {{ addr.name }}, {{ addr.zip }} {{ addr.city }}
 
-Nur du erhälst eine Rechnung für dein Abo, falls du dein Abo teilst, bitte ich dich, die Rechnung an deine:n Abopartner:in weiterzuleiten.
+Nur du erhältst eine Rechnung für dein Abo. Falls du dein Abo teilst, bitte ich dich, die Rechnung an deine:n Abopartner:in weiterzuleiten.
 So kann er/sie auch seinen/ihren Anteil der Rechnung zahlen.
 Falls du keine Mailadresse von deiner/deinem Abopartner:in hast, kannst du die Rechnung gerne an mich ({{ v_finance_contact }}) senden, dann leite ich sie weiter.
 
