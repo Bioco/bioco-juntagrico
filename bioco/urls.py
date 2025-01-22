@@ -38,7 +38,7 @@ urlpatterns = [
     re_path(r'^',include('juntagrico_billing.urls')),
 #    re_path(r'^',include('juntagrico_pg.urls')),
 
-    re_path(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+#    re_path(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 #    re_path(r'^openid/', include('oidc_provider.urls', namespace='oidc_provider')),
 
 #    re_path(r'^openidinit$', openid_init),

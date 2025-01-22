@@ -86,7 +86,7 @@ MIDDLEWARE=[
     'impersonate.middleware.ImpersonateMiddleware',
     'django.middleware.security.SecurityMiddleware',
     #'subdomains.middleware.SubdomainURLRoutingMiddleware',
-    'oauth2_provider.middleware.OAuth2TokenMiddleware',
+    #'oauth2_provider.middleware.OAuth2TokenMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
@@ -107,7 +107,7 @@ INSTALLED_APPS = (
     #'juntagrico_webdav',
     'crispy_forms',
     'impersonate',
-    'oauth2_provider',
+    #'oauth2_provider',
     'oidc_provider',
     'adminsortable2',
     # Uncomment the next line to enable admin documentation:
@@ -190,7 +190,7 @@ SERVER_EMAIL="intranet@bioco.ch"
 AUTHENTICATION_BACKENDS = (
     'juntagrico.util.auth.AuthenticateWithEmail',
     'django.contrib.auth.backends.ModelBackend',
-    'oauth2_provider.backends.OAuth2Backend',
+    #'oauth2_provider.backends.OAuth2Backend',
 )
 
 """
