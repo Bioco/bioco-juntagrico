@@ -44,8 +44,6 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 OAUTH2_PROVIDER = {
     'SCOPES': {
-        'politoloco': 'politoloco darf einmalig deine Email sowie deinen Namen abfragen um einen Account zu erstellen',
-        'beipackzettel': 'beipackzettel darf einmalig deine Email sowie deinen Namen abfragen um einen Account zu erstellen',
     },
 }
 

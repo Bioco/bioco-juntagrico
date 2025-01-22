@@ -6,7 +6,6 @@ from django.contrib import admin
 from django.conf import settings
 admin.autodiscover()
 from django.contrib.auth.views import LoginView
-#from .views import Custom500View, error, politoloco_profile, beipackzettel_profile, openid_init, date
 from juntagrico.views import home as jhome
 import bioco.views
 from juntagrico.config import Config
@@ -24,8 +23,6 @@ urlpatterns = [
     re_path(r'^favicon\.ico$', RedirectView.as_view(url=Config.favicon(), permanent=True)),
 
 #    re_path(r'^info/date$', date),
-
-#    re_path(r'^beipackzettel/profile$', beipackzettel_profile),
 
     re_path(r'^', include('juntagrico.urls')),
     re_path(r'^impersonate/', include('impersonate.urls')),

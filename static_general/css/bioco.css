@@ -172,18 +172,7 @@ th {
     height: 440px;
 }
 
-.politoloco {
-    height: 30px;
-    background: url('/static/img/erbse_x_politoloco.png') repeat-x;
-}
 
-.politoloco-label {
-    line-height: 40px;
-}
-
-.politoloco-label input[type=checkbox] {
-    margin-top: 15px;
-}
 
 #filter-locos {
     width: 1000px;
