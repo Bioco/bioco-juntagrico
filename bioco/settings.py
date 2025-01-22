@@ -77,6 +77,7 @@ TEMPLATES = [
 
 
 MIDDLEWARE=[
+    'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -92,6 +93,7 @@ MIDDLEWARE=[
 INSTALLED_APPS = (
     'juntagrico',
     'bioco',
+    'polymorphic',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -250,6 +252,8 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
 """
     Impersonate Settings
 """
@@ -357,7 +361,7 @@ ADMINPORTAL_SERVER_URL = "intranet.bioco.ch"
 BUSINESS_REGULATIONS = "https://bioco.ch/wp-content/uploads/2018/12/1812_bioco_Betriebsreglement.pdf"
 BYLAWS = "https://bioco.ch/wp-content/uploads/2017/01/1701-Statuten.pdf"
 MAIL_TEMPLATE = "bioco_email.html"
-STYLE_SHEET = "/static/css/bioco.css"
+STYLES = {'static': ['css/bioco.css']}
 FAVICON = "/static/img/bioco_favicon.png"
 FAQ_DOC = "" # we dont have an FAQ, emtpy will not show
 EXTRA_SUB_INFO = "" # we dont have a Zusatzabos, emtpy will not show

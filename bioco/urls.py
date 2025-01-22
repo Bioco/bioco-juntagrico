@@ -1,4 +1,4 @@
-from django.conf.urls import include, url
+from django.conf.urls import include
 from django.urls import path, re_path
 
 # Uncomment the next two lines to enable the admin:
@@ -26,6 +26,9 @@ urlpatterns = [
 	
 #    re_path(r'^politoloco/profile$', politoloco_profile),
 #    re_path(r'^beipackzettel/profile$', beipackzettel_profile),
+
+    # TODO The original view goes only to +14 days, but then we often get an empty list because everything is booked out
+    path('my/home', bioco.views.home, name='home'),
 
     re_path(r'^', include('juntagrico.urls')),
     re_path(r'^impersonate/', include('impersonate.urls')),

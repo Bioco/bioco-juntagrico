@@ -28,7 +28,7 @@
     </thead>
     <tbody>
         {% for job in jobs %}
-            <tr data-place="{{ job.type.location }}" data-starttime="{{ job.time |date:'H:i' }}"data-endtime="{{ job.end_time |date:'H:i' }}" data-area="{{ job.type.activityarea.name }}">
+            <tr data-place="{{ job.type.location }}" data-starttime="{{ job.time |date:'H:i' }}" data-endtime="{{ job.end_time |date:'H:i' }}" data-area="{{ job.type.activityarea.name }}">
                 <td class="details-control">
                 </td>
                 <td>
@@ -44,7 +44,7 @@
                     <img title="Einsatz zählt {{ job.multiplier }}-fach" src="{% images "job_multiplier" %}"/>
                 </td>
                 <td>
-                    {% with occupied=job.occupied_places free=job.free_slots total=job.slots %}
+                    {% with occupied=job.occupied_slots free=job.free_slots total=job.slots %}
 
                     {% with ''|center:occupied as range %}
                     {% for _ in range %}
