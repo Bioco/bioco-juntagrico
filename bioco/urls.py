@@ -16,19 +16,16 @@ from django.views.generic.base import RedirectView
 #handler500 = Custom500View.as_view()
 
 urlpatterns = [
-#	url('^500$', Custom500View.as_view()),    
-#	url('^500/test$',error),
-    
+    # TODO The original view goes only to +14 days, but then we often get an empty list because everything is booked out
+    path('', bioco.views.home, name='home'),   
+    path('my/home', bioco.views.home, name='home'),
+
     re_path('^$', jhome),
     re_path(r'^favicon\.ico$', RedirectView.as_view(url=Config.favicon(), permanent=True)),
 
 #    re_path(r'^info/date$', date),
-	
-#    re_path(r'^politoloco/profile$', politoloco_profile),
-#    re_path(r'^beipackzettel/profile$', beipackzettel_profile),
 
-    # TODO The original view goes only to +14 days, but then we often get an empty list because everything is booked out
-    path('my/home', bioco.views.home, name='home'),
+#    re_path(r'^beipackzettel/profile$', beipackzettel_profile),
 
     re_path(r'^', include('juntagrico.urls')),
     re_path(r'^impersonate/', include('impersonate.urls')),
