@@ -1,4 +1,4 @@
-juntagrico==1.5.0
+juntagrico==1.5.8
 git+https://github.com/juntagrico/juntagrico-billing.git@72dc5398a2a7da464ed4fe088719f13c7f1bdc3f
 
 gunicorn>=23.0.0
