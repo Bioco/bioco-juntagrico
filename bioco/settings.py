@@ -395,6 +395,13 @@ OIDC_EXTRA_SCOPE_CLAIMS = 'bioco.oidc_provider_settings.CustomScopeClaims'
 FROM_FILTER = {'filter_expression': '.*@bioco\.ch',
                'replacement_from': 'intranet@bioco.ch'}
 
+SUB_OVERVIEW_FORMAT = {
+    'delimiter': ' + ',
+    # default: '{product}:{size}:{type}={amount}'
+    # but we only have one product and type == size, except for some special cases like type == BG.
+    'format': '{amount}x ({type})'
+    }
+
 from juntagrico.util import addons
 addons.config.register_user_menu('bioco_menu.html')
 #addons.config.register_admin_menu('bioco_admin_menu.html')
