@@ -197,3 +197,16 @@ a[href$='/my/cancel/membership'] {
 a[href$='/my/deliveries'] {
     display: none;
 }
+
+/* collapsible row using CSS only which works by toggling a hidden checkbox inside the collapse row */
+input[name="collapsible_control"] {
+    display:none; 
+}
+
+.collapsible_content {
+    display: none; 
+}
+
+.collapsible_content:has(input[name="collapsible_control"]:checked) {
+    display: table-cell; 
+}
