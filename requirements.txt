@@ -1,11 +1,11 @@
-juntagrico==1.5.8
-git+https://github.com/juntagrico/juntagrico-billing.git@72dc5398a2a7da464ed4fe088719f13c7f1bdc3f
+juntagrico~=1.6.0
+juntagrico-billing~=1.6.0
 
 gunicorn>=23.0.0
-psycopg2 # Postgres binary distribution
+psycopg[binary,pool]
+
 django-oidc-provider>=0.9.0 # open ID connect
 whitenoise>=6.11.0
 dj-database-url>=2.0.1 # To configure DB URL on Heroku
 django-storages[s3]>=1.1.8 # To use S3 for temporary file storage 
 django-admin-sortable2>=0.7.8 # for sortable entries in admin backend
-reportlab==3.6.6  # newer versions seem to lack getStringIO and ShowBoundaryValue

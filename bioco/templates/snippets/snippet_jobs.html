@@ -40,8 +40,8 @@
                         {{ job.type.get_name }}
                     </a>
                 </td>
-                <td>
-                    {{ job.multiplier }} x
+                <td style="white-space: nowrap;">
+                    {{ job.multiplier|floatformat }} x
                     <img title="Einsatz zählt {{ job.multiplier }}-fach" src="{% images "job_multiplier" %}"/>
                 </td>
                 <td>
@@ -67,13 +67,21 @@
                     </td>
                 {% endif %}
             </tr>
-            <tr>
-                <td colspan="6" class="collapsible_content">
+            <tr class="collapsible_content">
+                <td></td>
+                <td></td>
+                <td>
                     <input type="checkbox" name="collapsible_control" id="handle_{{job.id}}">
                     <p><b>Ort:</b> {{ job.type.location }}</p>
                     <p><b>Zeit:</b> {{ job.time |date:'H:i' }} - {{ job.end_time |date:'H:i' }}</p>
                     <p><b>Beschreibung:</b> {{ job.type.description|safe }}</p>
                 </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                {% if b_show_job_extras %}
+                    <td></td>
+                {% endif %}
             </tr>
         {% endfor %}
     </tbody>

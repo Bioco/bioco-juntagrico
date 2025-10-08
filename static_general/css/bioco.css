@@ -200,13 +200,13 @@ a[href$='/my/deliveries'] {
 
 /* collapsible row using CSS only which works by toggling a hidden checkbox inside the collapse row */
 input[name="collapsible_control"] {
-    display:none; 
+    display:none;
 }
 
 .collapsible_content {
-    display: none; 
+    display: none;
 }
 
 .collapsible_content:has(input[name="collapsible_control"]:checked) {
-    display: table-cell; 
+    display: table-row;
 }

@@ -33,7 +33,7 @@ SITE_ID = 1
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-LOGIN_REDIRECT_URL = "/my/home"
+LOGIN_REDIRECT_URL = "/"
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'bioco.wsgi.application'
@@ -89,9 +89,6 @@ MIDDLEWARE=[
 ]
 
 INSTALLED_APPS = (
-    'juntagrico',
-    'bioco',
-    'polymorphic',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -99,10 +96,15 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'bioco',
     'juntagrico_billing',
+    'juntagrico',
     #'juntagrico_pg',
     #'juntagrico_polling',
     #'juntagrico_webdav',
+    'fontawesomefree',
+    'import_export',
+    'polymorphic',
     'crispy_forms',
     'impersonate',
     #'oauth2_provider',
@@ -180,7 +182,7 @@ ADMINS = [
     ('Admin', os.environ.get('JUNTAGRICO_ADMIN_EMAIL')),
 ]
 MANAGERS = ADMINS
-SERVER_EMAIL="intranet@bioco.ch"
+SERVER_EMAIL = "intranet@bioco.ch"
 
 """
     Auth Settings
@@ -250,8 +252,20 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
+# needed for 1.6.0?
+# STORAGES = {
+#     "default": {
+#         "BACKEND": "django.core.files.storage.FileSystemStorage",
+#     },
+#     "staticfiles": {
+#         "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+#     },
+# }
+
+
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 WHITENOISE_MANIFEST_STRICT = False
 
 """
@@ -354,8 +368,17 @@ ORGANISATION_BANK_CONNECTION = {
     "BIC": "ABSOCH22",
     "NAME": "Alternative Bank Schweiz AG"
 }
-INFO_EMAIL = "info@bioco.ch"
-SERVER_URL = "www.bioco.ch"
+CONTACTS = {
+    "general": "info@bioco.ch",
+    'for_members': "info@bioco.ch",
+    'for_subscriptions': "info@bioco.ch",
+    'for_shares': "info@bioco.ch",
+    'technical': SERVER_EMAIL,
+}
+ORGANISATION_WEBSITE = {
+    'name': "www.bioco.ch",
+    'url': "https://www.bioco.ch"
+}
 ADMINPORTAL_NAME = "biocò Intranet"
 ADMINPORTAL_SERVER_URL = "intranet.bioco.ch"
 BUSINESS_REGULATIONS = "https://bioco.ch/wp-content/uploads/2018/12/1812_bioco_Betriebsreglement.pdf"
@@ -366,6 +389,7 @@ FAVICON = "/static/img/bioco_favicon.png"
 FAQ_DOC = "" # we dont have an FAQ, emtpy will not show
 EXTRA_SUB_INFO = "" # we dont have a Zusatzabos, emtpy will not show
 ACTIVITY_AREA_INFO = "" # we dont have Taetigkeitsbereich Infos, emtpy will not show
+ENABLE_SHARES = True
 SHARE_PRICE = "250"
 PROMOTED_JOB_TYPES = ["Aktionstag"]
 PROMOTED_JOBS_AMOUNT = 2
@@ -399,8 +423,11 @@ SUB_OVERVIEW_FORMAT = {
     'delimiter': ' + ',
     # default: '{product}:{size}:{type}={amount}'
     # but we only have one product and type == size, except for some special cases like type == BG.
-    'format': '{amount}x ({type})'
+    'format': '{amount}x ({type})',
+    'part_format': '{type}',
     }
+
+IMPORT_EXPORT_EXPORT_PERMISSION_CODE = 'view'
 
 from juntagrico.util import addons
 addons.config.register_user_menu('bioco_menu.html')

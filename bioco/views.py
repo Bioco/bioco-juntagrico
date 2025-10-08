@@ -1,5 +1,7 @@
 from django.utils import timezone
 from datetime import timedelta
+import datetime
+from juntagrico.entity.depot import Tour
 from juntagrico.dao.activityareadao import ActivityAreaDao
 from juntagrico.dao.jobdao import JobDao
 from juntagrico.util.messages import home_messages
@@ -58,9 +60,9 @@ def depot_overview_direct(request):
     depot_dict = {
         'subscriptions': SubscriptionDao.all_active_subscritions(),
         'products': SubscriptionProductDao.get_all_for_depot_list(),
-        'depots': DepotDao.all_depots_ordered(),
-        'weekdays': {weekdays[weekday['weekday']]: weekday['weekday'] for weekday in
-                     DepotDao.distinct_weekdays_for_depot_list()},
+        'depots': DepotDao.all_depots_for_list(),
+        'date': datetime.date.today(),
+        'tours': Tour.objects.filter(visible_on_list=True),
         'messages': ListMessageDao.all_active()
     }
 
