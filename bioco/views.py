@@ -14,6 +14,7 @@ from juntagrico.util.pdf import render_to_pdf_storage, render_to_pdf_http
 from juntagrico.util.temporal import weekdays
 from django.shortcuts import render
 from juntagrico.dao.depotdao import DepotDao
+from juntagrico.entity.delivery import Delivery
 
 # this is a copy from juntagrico/views.py but showing ALL deliveries, not filtered by date or subscription
 @login_required
@@ -21,9 +22,10 @@ def deliveries(request):
     '''
     All deliveries to be sorted etc.
     '''
-    deliveries = DeliveryDao.all_deliveries_order_by_delivery_date_desc()
+
+    delivieries = Delivery.objects.all().order_by("-delivery_date")
     renderdict = {
-        'deliveries': deliveries,
+        'deliveries': delivieries,
         'menu': {'deliveries': 'active'},
     }
 
