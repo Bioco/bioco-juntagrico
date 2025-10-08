@@ -2,6 +2,8 @@ juntagrico~=1.6.0
 juntagrico-billing~=1.6.0
 
 gunicorn>=23.0.0
+setuptools # for pkg_resources - only local required - why?
+
 psycopg[binary,pool]
 
 django-oidc-provider>=0.9.0 # open ID connect
@@ -9,3 +11,4 @@ whitenoise>=6.11.0
 dj-database-url>=2.0.1 # To configure DB URL on Heroku
 django-storages[s3]>=1.1.8 # To use S3 for temporary file storage 
 django-admin-sortable2>=0.7.8 # for sortable entries in admin backend
+django-debug-toolbar

@@ -5,7 +5,7 @@ import dj_database_url
 """
     General Settings
 """
-DEBUG = os.environ.get("JUNTAGRICO_DEBUG", "True") == "True"
+DEBUG = os.environ.get("JUNTAGRICO_DEBUG", "False") == "True"
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
 
@@ -20,8 +20,12 @@ ALLOWED_HOSTS = [
     'bioco-test.herokuapp.com',
     'bioco-old.herokuapp.com',
 ]
+
 if DEBUG:
-    ALLOWED_HOSTS += ['localhost', '127.0.0.1']
+    INTERNAL_IPS = ['localhost', '127.0.0.1']
+    ALLOWED_HOSTS += INTERNAL_IPS
+else:
+    INTERNAL_IPS = []
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = None
 
@@ -75,6 +79,7 @@ TEMPLATES = [
 
 
 MIDDLEWARE=[
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -112,6 +117,7 @@ INSTALLED_APPS = (
     'adminsortable2',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'debug_toolbar',
 )
 
 

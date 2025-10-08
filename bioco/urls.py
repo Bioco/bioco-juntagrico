@@ -11,6 +11,7 @@ import bioco.views
 from juntagrico.config import Config
 from juntagrico import views_subscription as juntagrico_subscription
 from django.views.generic.base import RedirectView
+from debug_toolbar.toolbar import debug_toolbar_urls
 
 #handler500 = Custom500View.as_view()
 
@@ -54,4 +55,4 @@ urlpatterns = [
 
     # workaround: all deliveries (not filtered to day or own subscription type)
     re_path('my/all_deliveries', bioco.views.deliveries, name='bioco-all-deliveries'),  #
-]
+] + debug_toolbar_urls()
