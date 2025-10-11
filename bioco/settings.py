@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                'juntagrico.context_processors.vocabulary',
             ],
             'loaders': [
                 'django.template.loaders.filesystem.Loader',
@@ -164,7 +165,7 @@ WHITELIST_EMAILS = []
 def whitelist_email_from_env(var_env_name):
     email = os.environ.get(var_env_name)
     if email:
-        WHITELIST_EMAILS.append(email.replace('@gmail.com', '(\+\S+)?@gmail.com'))
+        WHITELIST_EMAILS.append(email)
 
 whitelist_email_from_env("JUNTAGRICO_EMAIL_USER")
 
@@ -279,6 +280,7 @@ WHITENOISE_MANIFEST_STRICT = False
 """
 IMPERSONATE = {
     'REDIRECT_URL': '/my/profile',
+    'URI_EXCLUSIONS': [], # enable /admin impersonation
 }
 
 """
@@ -396,6 +398,17 @@ FAQ_DOC = "" # we dont have an FAQ, emtpy will not show
 EXTRA_SUB_INFO = "" # we dont have a Zusatzabos, emtpy will not show
 ACTIVITY_AREA_INFO = "" # we dont have Taetigkeitsbereich Infos, emtpy will not show
 ENABLE_SHARES = True
+REQUIRED_SHARES = 1 # minimal number of shares to sign up as main member
+ALLOW_JOB_UNSUBSCRIBE = """
+<div class="alert alert-info">
+<p>Anmeldungen für Einsätze sind grundsätzlich verpflichtend.</p>
+<p>Melde dich bitte nur ab, wenn dies unvermeidbar ist oder wenn der Einsatz noch weit in der Zukunft liegt.</p>
+<p>Stelle insbesondere bei kurzfristigen Abmeldungen sicher, dass du eine Ersatzperson findest und informiere die verantwortliche Person des Einsatzes.</p>
+</div>
+"""
+ENABLE_NOTIFICATIONS = [] # Available options: job_subscribed
+DISABLE_NOTIFICATIONS = [] # Available options: job_subscription_changed, job_unsubscribed
+
 SHARE_PRICE = "250"
 PROMOTED_JOB_TYPES = ["Aktionstag"]
 PROMOTED_JOBS_AMOUNT = 2
