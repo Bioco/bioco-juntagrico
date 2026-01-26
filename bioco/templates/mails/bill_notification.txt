@@ -29,22 +29,17 @@ Nur du erhältst eine Rechnung für dein Abo. Falls du dein Abo teilst, bitte ic
 So kann er/sie auch seinen/ihren Anteil der Rechnung zahlen.
 Falls du keine Mailadresse von deiner/deinem Abopartner:in hast, kannst du die Rechnung gerne an mich ({{ v_finance_contact }}) senden, dann leite ich sie weiter.
 
-Im Betriebsreglement ist folgendes vermerkt:
------------------------------------------------------------------------------------------------------
-Solidaritäts-Fonds: Wer die Möglichkeit hat, zahlt mehr fürs Abo. Der Mehrertrag fliesst in einen
-Topf, der für Geringverdienende eine Beitragsreduktion ermöglicht. Falls der Betrag im
-Solidaritäts-Fonds den Gegenwert von drei "normalen" Abos überschreitet, darf der Überschuss
-für Personal-, Ausbildungs- oder Produktionskosten benutzt werden.
------------------------------------------------------------------------------------------------------
-
-Damit wir in diesem Jahr keinen Verlust machen, sind wir darauf angewiesen, dass jede:r, der/die es sich
+Damit wir in diesem Jahr möglichst keinen Verlust machen, sind wir darauf angewiesen, dass jede:r, der/die es sich
 leisten kann, in den Solidaritätsfonds einzahlt.
 
 Falls du vom Solidaritäts-Fonds unterstützt werden möchtest, kannst du dich sehr gerne bei der Ombudsstelle ({{ v_ombudsman_contact }}) melden.
 
-Und auch dieses Jahr darfst du natürlich wieder etwas mehr für's Abo zahlen :-).
+Falls wir im Jahr 2026 doch noch einen Verlust erreichen sollten, werden wir diesen, wie an
+der ausserordentlichen GV beschlossen, wieder durch eine Bieterrunde ausgleichen.
 
-Wenn du noch Fragen zur Rechnung hast, die Rechnung in Raten zahlen oder einen Einzahlungsschein bekommen möchtest, kannst du dich bei mir melden.
+Wenn du noch Fragen zur Rechnung hast oder die Rechnung in Raten zahlen möchtest, kannst du dich bei mir melden.
+Den Einzahlungsschein habe ich bereits der Infomail über Gemüserechnung 2026 beigelegt.
+
 Bis bald auf dem Feld und liebe Grüsse,
 {{ v_finance_contact }}
 
