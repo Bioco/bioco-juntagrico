@@ -9,6 +9,8 @@ DEBUG = os.environ.get("JUNTAGRICO_DEBUG", "False") == "True"
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
 
+SECURE_SSL_REDIRECT = os.environ.get(ssl_redirect)
+
 ALLOWED_HOSTS = [
     'intranet.bioco.ch',
     'intranet-new.bioco.ch',
