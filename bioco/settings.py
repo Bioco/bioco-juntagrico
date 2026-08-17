@@ -189,6 +189,7 @@ ADMINS = [
 ]
 MANAGERS = ADMINS
 SERVER_EMAIL = "intranet@bioco.ch"
+INFO_EMAIL = SERVER_EMAIL
 
 """
     Auth Settings
@@ -385,6 +386,7 @@ ORGANISATION_WEBSITE = {
     'name': "www.bioco.ch",
     'url': "https://www.bioco.ch"
 }
+SERVER_URL = "bioco.ch"
 ADMINPORTAL_NAME = "biocò Intranet"
 ADMINPORTAL_SERVER_URL = "intranet.bioco.ch"
 BUSINESS_REGULATIONS = "https://bioco.ch/wp-content/uploads/2018/12/1812_bioco_Betriebsreglement.pdf"
